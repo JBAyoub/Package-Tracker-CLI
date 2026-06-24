@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'package:package__tracker__c_l_i/Models/ShipmentDetails.dart';
 import 'package:package__tracker__c_l_i/Models/TrackingEvent.dart';
 
 class Parcel {
@@ -8,6 +9,7 @@ class Parcel {
   final String from;
   final String to;
   final List<TrackingEvent> history;
+  final Shipmentdetails shipmentDetails;
 
   // final Map<String, dynamic> shipmentDetails;
 
@@ -18,12 +20,12 @@ class Parcel {
     required this.from,
     required this.to,
     required this.history,
+    required this.shipmentDetails,
   });
 
   factory Parcel.fromJson(Map<String, dynamic> json) {
     final parcel = json['data']['accepted'][0];
     final info = parcel['track_info'];
-
     return Parcel(
       trackingNumber: parcel['number'],
       carrier: parcel['provider']['name'],
@@ -33,6 +35,9 @@ class Parcel {
       history: (parcel["track_info"]["milestone"] as List)
           .map((event) => TrackingEvent.fromJson(event))
           .toList(),
+      shipmentDetails: Shipmentdetails.fromJson(
+        parcel["track_info"]["misc_info"] as Map<String, dynamic>,
+      ),
     );
   }
 
