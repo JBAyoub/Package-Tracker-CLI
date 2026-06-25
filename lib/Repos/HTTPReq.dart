@@ -12,8 +12,10 @@ Future<void> getTrackInfo({
     APIkey: key,
     trackingNumber: trackNumber,
   );
-
-  if (carrier != null) {
+  if (carrier == null) {
+    print("Could not find the carrier info");
+    return;
+  } else {
     final uri = Uri.https("api.17track.net", '/track/v2.4/gettrackinfo');
     final response = await http.post(
       uri,
@@ -59,7 +61,7 @@ String? getCarrier(http.Response response) {
       carrier = rejected[0]["carrier"].toString();
       return carrier;
     }
-    print("Could not get the carrier.");
-    return null;
   }
+  print("Could not get the carrier.");
+  return null;
 }

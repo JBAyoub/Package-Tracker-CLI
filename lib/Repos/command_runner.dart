@@ -14,6 +14,7 @@ final ArgParser parser = ArgParser()
 Future<void> trackPack(List<String>? inputArgs) async {
   final String? key;
   final String? tnumber;
+  ArgResults results;
   if (inputArgs == null || inputArgs.isEmpty) {
     print(parser.usage);
     print("No arguments were provided. Exiting");
@@ -24,7 +25,14 @@ Future<void> trackPack(List<String>? inputArgs) async {
       await saveAPIKey();
     }
     key = await getApiKey();
-    ArgResults results = parser.parse(inputArgs);
+    try {
+      results = parser.parse(inputArgs);
+    } on FormatException catch (e) {
+      print(e.message);
+      print("Please provide a tracking number");
+      return;
+    }
+
     if (results['tnumber'] == null) {
       tnumber = askForTrackingNumber();
     } else {
