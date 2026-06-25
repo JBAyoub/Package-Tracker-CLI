@@ -31,7 +31,7 @@ Future<void> trackPack(List<String>? inputArgs) async {
       tnumber = results['tnumber']!;
     }
   }
-  await registerTrackingNumbers(APIkey: key!, trackingNumber: tnumber!);
+  await getTrackInfo(trackNumber: tnumber!, key: key!);
 }
 
 String askForTrackingNumber() {

@@ -28,11 +28,14 @@ class Parcel {
     final info = parcel['track_info'];
     return Parcel(
       trackingNumber: parcel['number'],
-      carrier: parcel['provider']['name'],
-      status: info['latest_event']['description'],
+      carrier: info['tracking']['providers'][0]['provider']['name'],
+      status:
+          info['latest_event']?['description']?.toString() ??
+          info['latest_status']?['status']?.toString() ??
+          'Unknown',
       from: info['shipping_info']['shipper_address']['country'],
       to: info['shipping_info']['recipient_address']['country'],
-      history: (parcel["track_info"]["milestone"] as List)
+      history: (info["milestone"] as List)
           .map((event) => TrackingEvent.fromJson(event))
           .toList(),
       shipmentDetails: Shipmentdetails.fromJson(
