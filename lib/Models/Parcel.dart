@@ -11,8 +11,6 @@ class Parcel {
   final List<TrackingEvent> history;
   final Shipmentdetails shipmentDetails;
 
-  // final Map<String, dynamic> shipmentDetails;
-
   Parcel({
     required this.trackingNumber,
     required this.carrier,
