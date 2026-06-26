@@ -19,4 +19,19 @@ class Shipmentdetails {
       pieces: int.tryParse(json['pieces'].toString()),
     );
   }
+
+  @override
+  String toString() {
+    return '''
+==================================================
+Shipment Details
+==================================================
+
+Service  : $service
+Weight   : $weight
+Status   : $dimensions
+Pieces   : $pieces
+
+''';
+  }
 }

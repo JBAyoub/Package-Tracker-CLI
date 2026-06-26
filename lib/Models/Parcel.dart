@@ -44,6 +44,7 @@ class Parcel {
 
   @override
   String toString() {
+    final historyText = history.map((event) => event.toString()).join('\n');
     return '''
 ==================================================
 PACKAGE TRACKER
@@ -56,11 +57,11 @@ From            : $from
 To              : $to
 
 Latest Update:
-${history[0]}
+${history.isNotEmpty ? history.first : 'No tracking events available.'}
 ==================================================
 History
 ==================================================
-$history
+$historyText
 ==================================================
 Shipment Details
 ==================================================
