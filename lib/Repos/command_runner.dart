@@ -4,12 +4,9 @@ import 'package:args/args.dart';
 import 'package:package__tracker__c_l_i/Repos/HTTPReq.dart';
 import 'package:package__tracker__c_l_i/Repos/RetrieveKey.dart';
 
-final ArgParser trackCommand = ArgParser();
-
-final ArgParser parser = ArgParser()
-  ..addCommand("track", trackCommand)
-  ..addOption("tnumber", abbr: "t")
-  ..addFlag("details", abbr: "d");
+final parser = ArgParser()
+  ..addFlag('help', abbr: 'h', negatable: false)
+  ..addOption('tnumber', abbr: 't', help: 'Tracking number to look up.');
 
 Future<void> trackPack(List<String>? inputArgs) async {
   final String? key;
@@ -27,6 +24,10 @@ Future<void> trackPack(List<String>? inputArgs) async {
     key = await getApiKey();
     try {
       results = parser.parse(inputArgs);
+      if (results['help']) {
+        print(parser.usage);
+        return;
+      }
     } on FormatException catch (e) {
       print(e.message);
       print("Please provide a tracking number");
