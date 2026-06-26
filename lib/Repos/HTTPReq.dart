@@ -24,10 +24,17 @@ Future<void> getTrackInfo({
         {'number': trackNumber, 'carrier': carrier},
       ]),
     );
-    var jsonResponse =
-        convert.jsonDecode(response.body) as Map<String, dynamic>;
-    var p = Parcel.fromJson(jsonResponse);
-    print(p);
+    if (response.statusCode == 200) {
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var p = Parcel.fromJson(jsonResponse);
+      print(p);
+    } else {
+      print(
+        "Could not find package :( \n Please check the tracking number and try again.",
+      );
+    }
+    return;
   }
 }
 

@@ -22,7 +22,7 @@ class Parcel {
   });
 
   factory Parcel.fromJson(Map<String, dynamic> json) {
-    final parcel = json['data']['accepted'][0];
+    final parcel = json['data']['accepted'][0] ?? '';
     final info = parcel['track_info'];
     return Parcel(
       trackingNumber: parcel['number'],
