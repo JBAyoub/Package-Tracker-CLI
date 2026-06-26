@@ -59,12 +59,16 @@ String? getCarrier(http.Response response) {
   if (response.statusCode == 200) {
     final String? carrier;
     final decoded = jsonDecode(response.body);
+    if (decoded["code"] == 500) {
+      print("There's an ERROR with the 17TRACK API Server. Come back later!");
+      return null;
+    }
     final accepted = decoded["data"]["accepted"] as List;
     final rejected = decoded["data"]["rejected"] as List;
-    if (accepted.isNotEmpty) {
+    if (decoded["data"]["accepted"] != null) {
       carrier = accepted[0]["carrier"].toString();
       return carrier;
-    } else if (rejected.isNotEmpty) {
+    } else if (decoded["data"]["rejected"] != null) {
       carrier = rejected[0]["carrier"].toString();
       return carrier;
     }
