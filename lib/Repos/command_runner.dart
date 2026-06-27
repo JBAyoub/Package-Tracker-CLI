@@ -43,8 +43,9 @@ Future<void> trackPack(List<String>? inputArgs) async {
   try {
     await getTrackInfo(trackNumber: tnumber!, key: key!);
   } on RangeError catch (e) {
-    print(e.message);
-    print("\nPlease check the tracking number and try again.");
+    print(
+      "Package could not be found! Error: ${e.message} \nPlease check the tracking number and try again.",
+    );
   }
 }
 
