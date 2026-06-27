@@ -62,9 +62,6 @@ ${history.isNotEmpty ? history.first : 'No tracking events available.'}
 History
 ==================================================
 $historyText
-==================================================
-Shipment Details
-==================================================
 $shipmentDetails
 
 ''';

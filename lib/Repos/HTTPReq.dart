@@ -12,6 +12,7 @@ Future<void> getTrackInfo({
     APIkey: key,
     trackingNumber: trackNumber,
   );
+
   if (carrier == null) {
     print("Could not find the carrier info");
     return;
@@ -24,15 +25,12 @@ Future<void> getTrackInfo({
         {'number': trackNumber, 'carrier': carrier},
       ]),
     );
+
     if (response.statusCode == 200) {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
       var p = Parcel.fromJson(jsonResponse);
       print(p);
-    } else {
-      print(
-        "Could not find package :( \n Please check the tracking number and try again.",
-      );
     }
     return;
   }
@@ -56,23 +54,28 @@ Future<String?> registerTrackingNumbers({
 }
 
 String? getCarrier(http.Response response) {
-  if (response.statusCode == 200) {
-    final String? carrier;
-    final decoded = jsonDecode(response.body);
-    if (decoded["code"] == 500) {
-      print("There's an ERROR with the 17TRACK API Server. Come back later!");
-      return null;
-    }
-    final accepted = decoded["data"]["accepted"] as List;
-    final rejected = decoded["data"]["rejected"] as List;
-    if (decoded["data"]["accepted"] != null) {
-      carrier = accepted[0]["carrier"].toString();
-      return carrier;
-    } else if (decoded["data"]["rejected"] != null) {
-      carrier = rejected[0]["carrier"].toString();
-      return carrier;
-    }
+  if (response.statusCode != 200) {
+    print("Could not get the carrier.");
+    return null;
   }
-  print("Could not get the carrier.");
+
+  final decoded = jsonDecode(response.body);
+
+  if (decoded["code"] == 500) {
+    print("17TRACK server error. Please try again later.");
+    return null;
+  }
+
+  final accepted = decoded["data"]["accepted"] as List;
+  final rejected = decoded["data"]["rejected"] as List;
+
+  if (accepted.isNotEmpty) {
+    return accepted.first["carrier"].toString();
+  }
+
+  if (rejected.isNotEmpty) {
+    return rejected.first["carrier"].toString();
+  }
+
   return null;
 }
