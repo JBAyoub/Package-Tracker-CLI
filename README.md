@@ -1,4 +1,4 @@
-# 📦 Package Tracker CLI
+# Package Tracker CLI
 
 A command-line application written in **Dart** that tracks parcels using the **17TRACK API**.
 
