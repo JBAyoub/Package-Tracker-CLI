@@ -10,12 +10,10 @@ class TrackCommand {
   final parser = ArgParser()
     ..addFlag('help', abbr: 'h', negatable: false)
     ..addOption('tnumber', abbr: 't', help: 'Tracking number to look up.');
-  // final String? key;
-  // final String? tnumber;
+
   final TrackingService service;
   final ApiKeyStorage storage = ApiKeyStorage();
   TrackCommand(this.service);
-
   Future<void> run(List<String> arguments) async {
     final key = await storage.getApiKey();
 
