@@ -246,23 +246,6 @@ This project demonstrates:
 
 ---
 
-# Future Improvements
-
-Potential improvements include:
-
-* Unit tests
-* Integration tests
-* Dependency injection using `get_it`
-* Local caching of previous tracking results
-* Multiple command support (`track`, `history`, `carrier`, etc.)
-* Support for additional tracking providers
-* Colored terminal output
-* Automatic API key setup command
-* Docker support
-* CI/CD pipeline with GitHub Actions
-
----
-
 # What I Learned
 
 While building this project I gained practical experience with:
