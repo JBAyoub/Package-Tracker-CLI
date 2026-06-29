@@ -11,9 +11,9 @@ class TrackingEvent {
 
   factory TrackingEvent.fromJson(Map<String, dynamic> json) {
     return TrackingEvent(
-      time: json["time_iso"],
-      description: json["key_stage"],
-      location: json["location"],
+      time: DateTime.tryParse(json["time_raw"]["date"].toString()),
+      description: json["key_stage"] ?? 'No description found',
+      location: json["location"] ?? 'No location found',
     );
   }
   @override
