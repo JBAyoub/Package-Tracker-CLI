@@ -62,6 +62,10 @@ class TrackingApiClient {
     }
 
     if (rejected.isNotEmpty) {
+      if (rejected.first["error"]["code"].toString() == "-18019903") {
+        return null;
+      }
+
       return rejected.first["carrier"].toString();
     }
 

@@ -7,13 +7,13 @@ class TrackingRepositoryImpl implements TrackingRepository {
   TrackingRepositoryImpl(this.api);
 
   @override
-  Future<Parcel> getTrackInfo({
+  Future<Parcel?> getTrackInfo({
     required String? trackNumber,
     required String? key,
     String? carrier,
   }) async {
     final json = await api.get17TrackData(key, trackNumber, carrier);
-    return Parcel.fromJson(json!);
+    return json == null ? null : Parcel.fromJson(json);
   }
 
   @override

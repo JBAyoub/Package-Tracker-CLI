@@ -21,8 +21,8 @@ class Parcel {
     required this.shipmentDetails,
   });
 
-  factory Parcel.fromJson(Map<String, dynamic> json) {
-    final parcel = json['data']['accepted'][0] ?? '';
+  factory Parcel.fromJson(Map<String, dynamic>? json) {
+    final parcel = json?['data']['accepted'][0] ?? '';
     final info = parcel['track_info'];
     return Parcel(
       trackingNumber: parcel['number'],

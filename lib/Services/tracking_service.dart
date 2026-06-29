@@ -6,7 +6,7 @@ class TrackingService {
 
   TrackingService(this.repository);
 
-  Future<Parcel> track(String? key, String? trackNumber) async {
+  Future<Parcel?> track(String? key, String? trackNumber) async {
     final String? carrier = await repository.registerTrackingNumber(
       key: key,
       trackNumber: trackNumber,

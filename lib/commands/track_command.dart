@@ -27,7 +27,7 @@ class TrackCommand {
     }
     try {
       final parcel = await service.track(key, trackingNumber);
-      print(parcel);
+      print(parcel ?? "Couldn't find parcel :( ");
     } catch (e) {
       print(e);
     }
@@ -44,11 +44,11 @@ class TrackCommand {
       }
     } on FormatException catch (e) {
       print(e.message);
-      print("Please provide a tracking number");
       return null;
     }
 
     if (results['tnumber'] == null) {
+      print("Please provide a tracking number");
       tnumber = askForTrackingNumber();
     } else {
       tnumber = results['tnumber']!;
@@ -60,9 +60,8 @@ class TrackCommand {
     String? input;
     do {
       print("Example: 'RR123456789CN'");
-      print("Please enter a valid Tracking Number:");
       input = stdin.readLineSync() ?? '';
-    } while (v.validTrackNumber(input));
+    } while (!v.validTrackNumber(input));
     return input;
   }
 }
