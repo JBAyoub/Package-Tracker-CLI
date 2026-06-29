@@ -27,7 +27,7 @@ class TrackCommand {
     }
     try {
       final parcel = await service.track(key, trackingNumber);
-      print(parcel ?? "Couldn't find parcel :( ");
+      print(parcel ?? "Parcel doesn't exist in the 17TRACK database ");
     } catch (e) {
       print(e);
     }
